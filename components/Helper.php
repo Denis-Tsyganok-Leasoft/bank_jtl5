@@ -18,11 +18,6 @@ class Helper
           'see-transactions' => \BESTELLUNG_STATUS_OFFEN,
         ];
 
-    public static function convertToCents($amount): float|int
-    {
-        return $amount*100;
-    }
-
     public static function getOrderDetailsFromGingerTable(Bestellung $order, Order $gingerOrder): object|array|int
     {
         $query = "

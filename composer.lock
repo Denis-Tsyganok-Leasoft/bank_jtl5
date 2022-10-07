@@ -63,16 +63,16 @@
         },
         {
             "name": "gingerpayments/ginger-plugin-sdk",
-            "version": "1.4.3",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gingerpayments/ginger-php-plugin-sdk.git",
-                "reference": "5e56bcf11cfad0075d406125ceb45729682452c5"
+                "reference": "9419407e9b879955661e8672cb0cb4cc8e62c063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gingerpayments/ginger-php-plugin-sdk/zipball/5e56bcf11cfad0075d406125ceb45729682452c5",
-                "reference": "5e56bcf11cfad0075d406125ceb45729682452c5",
+                "url": "https://api.github.com/repos/gingerpayments/ginger-php-plugin-sdk/zipball/9419407e9b879955661e8672cb0cb4cc8e62c063",
+                "reference": "9419407e9b879955661e8672cb0cb4cc8e62c063",
                 "shasum": ""
             },
             "require": {
@@ -105,9 +105,9 @@
             "description": "Extra layer for ginger-php library to use in plugin development.",
             "support": {
                 "issues": "https://github.com/gingerpayments/ginger-php-plugin-sdk/issues",
-                "source": "https://github.com/gingerpayments/ginger-php-plugin-sdk/tree/1.4.3"
+                "source": "https://github.com/gingerpayments/ginger-php-plugin-sdk/tree/1.4.4"
             },
-            "time": "2022-09-22T13:48:40+00:00"
+            "time": "2022-10-04T08:17:28+00:00"
         }
     ],
     "packages-dev": [

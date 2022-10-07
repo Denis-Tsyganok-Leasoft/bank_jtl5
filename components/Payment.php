@@ -26,7 +26,6 @@ class Payment extends Method
     {
         $this->plugin = Helper::getPluginById(BankConfig::PLUGIN_ID);
 
-
         if (!HelperRedefiner::validateApiKey()) {
             HelperRedefiner::displayNotification($this->plugin->getLocalization()->getTranslation('api_key_missing_error'), \Alert::TYPE_ERROR);
             return false;
@@ -36,7 +35,7 @@ class Payment extends Method
             $this->client = new Client(
                 new ClientOptions(
                     endpoint: BankConfig::BANK_ENDPOINT,
-                    useBundle: $this->plugin->getConfig()->getValue('ginger_api_key') === 'on',
+                    useBundle: $this->plugin->getConfig()->getValue('ginger_cacert') === 'on',
                     apiKey: $this->plugin->getConfig()->getValue('ginger_api_key')
                 )
             );
@@ -60,11 +59,11 @@ class Payment extends Method
             return false;
         }
 
-        if ($this->countryValidation && !$this->countryValidation()) {
+        if ($this->paymentName == 'afterpay' && !$this->countryValidation()) {
             return false;
         }
 
-        if ($this->ipValidation && !$this->ipValidation()) {
+        if ($this->paymentName == 'afterpay' && !$this->ipValidation()) {
             return false;
         }
 
@@ -194,18 +193,18 @@ class Payment extends Method
 
     public function countryValidation(): bool
     {
-        $countries = array_map("trim", explode(',', $this->plugin->getConfig()->getValue('ginger_'.$this->paymentName.'_countries')));
+        $countries = array_map("trim", explode(',', $this->plugin->getConfig()->getValue('ginger_afterpay_countries')));
 
         return in_array(Frontend::getCustomer()->cLand, $countries);
     }
 
     public function ipValidation(): bool
     {
-        if (!$this->plugin->getConfig()->getValue('ginger_'.$this->paymentName.'_ips')) {
+        if (!$this->plugin->getConfig()->getValue('ginger_afterpay_ips')) {
             return true;
         }
 
-        $ips = array_map("trim", explode(',', $this->plugin->getConfig()->getValue('ginger_'.$this->paymentName.'_ips')));
+        $ips = array_map("trim", explode(',', $this->plugin->getConfig()->getValue('ginger_afterpay_ips')));
 
         return in_array($_SERVER['REMOTE_ADDR'], $ips);
     }

@@ -20,6 +20,7 @@ use GingerPluginSdk\Properties\Currency;
 use GingerPluginSdk\Properties\EmailAddress;
 use GingerPluginSdk\Properties\Locale;
 use GingerPluginSdk\Properties\Percentage;
+use GingerPluginSdk\Properties\RawCost;
 use GingerPluginSdk\Properties\VatPercentage;
 use JTL\Plugin\Helper;
 use JTL\Session\Frontend;
@@ -84,7 +85,7 @@ class OrderBuilder
 
     public function getAmount(): Amount
     {
-        return new Amount(HelperRedefiner::convertToCents($_SESSION['Warenkorb']->gibGesamtsummeWaren(true)));
+        return new Amount(new RawCost($_SESSION['Warenkorb']->gibGesamtsummeWaren(true)));
     }
 
     public function getTransactions(): Transactions
@@ -156,7 +157,7 @@ class OrderBuilder
                 merchantOrderLineId: $orderItem->kArtikel,
                 name: $orderItem->Artikel->cName,
                 quantity: $orderItem->nAnzahl,
-                amount: new Amount(HelperRedefiner::convertToCents($orderItem->Artikel->Preise->fVKBrutto)),
+                amount: new Amount(new RawCost($orderItem->Artikel->Preise->fVKBrutto)),
                 vatPercentage: new VatPercentage(new Percentage($orderItem->Artikel->Preise->fUst)),
                 currency: new Currency($this->order->Waehrung->code),
                 url: $orderItem->Artikel->cURLFull,
@@ -170,7 +171,7 @@ class OrderBuilder
                 merchantOrderLineId: $this->order->oVersandart->kVersandart,
                 name: $this->order->oVersandart->cName,
                 quantity: 1,
-                amount: new Amount(HelperRedefiner::convertToCents($this->order->oVersandart->fPreis)),
+                amount: new Amount(new RawCost($this->order->oVersandart->fPreis)),
                 vatPercentage: new VatPercentage(new Percentage(0)),
                 currency: $this->getCurrency()
             ));
